@@ -1,0 +1,19 @@
+.cell {
+    aspect-ratio: 1;
+
+    box-shadow: 2px 2px 3.5px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    margin: 5px;
+}
+.start {
+    background-color: green;
+}
+.end {
+    background-color: red;
+}
+.wall {
+    background-color: black;
+}
+.visited {
+    
+}
