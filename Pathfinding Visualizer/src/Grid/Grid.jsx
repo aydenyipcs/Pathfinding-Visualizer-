@@ -6,10 +6,16 @@ import "./Grid.scss";
 import { cellInfoPropTypes } from "../propTypes.jsx";
 
 const Grid = () => {
-  const { grid, setGrid, startPosition, endPosition, pathfindingAnimation } = useContext(GridContext);
+  const {
+    grid,
+    setGrid,
+    setStartPosition,
+    setEndPosition,
+    pathfindingAnimation,
+  } = useContext(GridContext);
 
   const [mousePressed, setMousePressed] = useState(false);
-  const [dragItem, setDragItem] = useState({
+  const [dragCell, setDragCell] = useState({
     type: null,
     row: null,
     col: null,
@@ -32,36 +38,35 @@ const Grid = () => {
     setMousePressed(true);
     const cell = grid[row][col];
     if (cell.start) {
-      setDragItem({ type: "start", row, col });
+      setDragCell({ type: "start", row, col });
     } else if (cell.end) {
-      setDragItem({ type: "end", row, col });
+      setDragCell({ type: "end", row, col });
     } else {
-      setGrid(addWallsToGrid(row, col));
+      setGrid(addWallsToGrid(row, col))
     }
   };
 
   const handleMouseOver = (row, col) => {
     if (!mousePressed) return;
-    if (dragItem.type) {
-      if (dragItem.row !== row || dragItem.col !== col) {
-        setGrid((prevGrid) => {
-          const newGrid = JSON.parse(JSON.stringify(prevGrid));
-
-          newGrid[dragItem.row][dragItem.col][dragItem.type] = false;
-          newGrid[row][col][dragItem.type] = true;
-
-          return newGrid;
-        });
-        setDragItem({ ...dragItem, row, col });
-      }
+    if (dragCell.type && (dragCell.row !== row || dragCell.col !== col)) {
+      setGrid((prevGrid) => {
+        const updatedGrid = [...prevGrid];
+        updatedGrid[dragCell.row][dragCell.col][dragCell.type] = false;
+        updatedGrid[row][col][dragCell.type] = true;
+        return updatedGrid;
+      });
+      setDragCell({ ...dragCell, row, col });
     } else {
-      setGrid(addWallsToGrid(row, col));
+      if (!grid[row][col].wall) setGrid(addWallsToGrid(row, col));
     }
   };
 
   const handleMouseUp = () => {
     setMousePressed(false);
-    setDragItem({ type: null, row: null, col: null });
+    if (dragCell.type === "start")
+      setStartPosition([dragCell.row, dragCell.col]);
+    if (dragCell.type === "end") setEndPosition([dragCell.row, dragCell.col]);
+    setDragCell({ type: null, row: null, col: null });
   };
 
   const eventHandlers = {
@@ -71,10 +76,9 @@ const Grid = () => {
   };
 
   const addWallsToGrid = (row, col) => {
-    const newGrid = JSON.parse(JSON.stringify(grid));
-    const newCell = { ...newGrid[row][col], wall: !newGrid[row][col].wall };
-    newGrid[row][col] = newCell;
-    return newGrid;
+      const updatedGrid = [...grid];
+      updatedGrid[row][col].wall = !updatedGrid[row][col].wall; //reverse the state - wall or cell
+      return updatedGrid;
   };
 
   return (

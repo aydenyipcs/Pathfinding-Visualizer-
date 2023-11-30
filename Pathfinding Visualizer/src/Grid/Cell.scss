@@ -1,19 +1,20 @@
 .cell {
     aspect-ratio: 1;
-
-    box-shadow: 2px 2px 3.5px rgba(0, 0, 0, 0.3);
+    border: 0.5px solid rgb(143, 143, 211);
     width: 100%;
-    margin: 5px;
 }
 .start {
-    background-color: green;
+    background-color: rgb(23, 183, 23);
 }
 .end {
-    background-color: red;
+    background-color: rgb(226, 43, 43);
 }
 .wall {
     background-color: black;
 }
-.visited {
-    
+.pathfinding {
+    background-color: rgb(189, 189, 242);
+}
+.shortestPath {
+    background-color: rgb(235, 235, 122);
 }

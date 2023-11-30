@@ -1,6 +1,6 @@
 //Function to create a blank grid
-const NUM_ROW = 55;
-const NUM_COL = 28;
+const NUM_ROW = 65;
+const NUM_COL = 30;
 
 export const createBlankGrid = (startPosition, endPosition) => {
   const blankGrid = [];

@@ -7,13 +7,11 @@ import "./app.scss";
 export const GridContext = createContext();
 
 const App = () => {
-  const [startPosition, setStartPosition] = useState([5, 12]);
-  const [endPosition, setEndPosition] = useState([49, 12]);
-  const [grid, setGrid] = useState(() =>
-    createBlankGrid(startPosition, endPosition)
-  );
-  const [pathfindingAnimation, setPathfindingAnimation] = useState(); //list of cells for animation 1
-  const [shortestPathAnimation, setShortestPathAnimation] = useState();//list of cells for animation 2
+  const [startPosition, setStartPosition] = useState([5, 12]); //Default start position
+  const [endPosition, setEndPosition] = useState([49, 12]); //Default end position
+  const [grid, setGrid] = useState(() => createBlankGrid(startPosition, endPosition)); // Initialize Grid 
+  const [pathfindingAnimation, setPathfindingAnimation] = useState(new Set()); //list of cells for animation 1
+  const [shortestPathAnimation, setShortestPathAnimation] = useState(new Set());//list of cells for animation 2
 
   return (
     <GridContext.Provider
