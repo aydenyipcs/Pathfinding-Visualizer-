@@ -26,7 +26,10 @@ const NavBar = () => {
     endPosition,
     setPathfindingAnimation,
     setShortestPathAnimation,
+    setPathfindingLength,
+    setShortestPathLength,
   } = useContext(GridContext);
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -37,7 +40,14 @@ const NavBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const clearGrid = () => {
+
+  const clearPath = () => {
+    //keep grid w walls and reset, no path in initialization
+    setPathfindingAnimation(new Set());
+    setShortestPathAnimation(new Set());
+  };
+
+  const resetGrid = () => {
     setGrid(createBlankGrid(startPosition, endPosition));
     setPathfindingAnimation(new Set());
     setShortestPathAnimation(new Set());
@@ -48,7 +58,7 @@ const NavBar = () => {
     "A* Search": aStar,
     "Greedy Best-First Search": greedy,
     "Breath-first Search": bfs,
-    "Depth-first Search": dfs
+    "Depth-first Search": dfs,
   };
   const runAlgo = (algo) => {
     const startCell = grid[startPosition[0]][startPosition[1]];
@@ -57,6 +67,10 @@ const NavBar = () => {
     const shortestPath = getShortestPath(
       allCellsInOrder[allCellsInOrder.length - 1]
     );
+    //Set distance traveled for path
+    // setPathfindingLength(allCellsInOrder.length - 1);
+    // setShortestPathLength(shortestPath.length - 1);
+
     animateAlgo(
       allCellsInOrder,
       shortestPath,
@@ -67,24 +81,36 @@ const NavBar = () => {
 
   return (
     <AppBar position="static" id="navbar">
-      <Toolbar>
-        <h1>Pathfinding Visualizer</h1>
-        <h3></h3>
-        <Button
-          id="algo-dropdown"
-          onClick={handleClick}
-          endIcon={<KeyboardArrowDownIcon aria-haspopup="true" />}
-        >
-          Visualize
-        </Button>
-        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-          {Object.entries(algos).map(([name]) => (
-            <MenuItem key={name} onClick={() => runAlgo(name)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Menu>
-        <Button onClick={clearGrid}>Clear Grid</Button>
+      <Toolbar className="toolbar">
+        <div className="title">
+          <h1>VOYAGER</h1>
+          <h3>- Navigate the world of pathfinding algorithms</h3>
+        </div>
+        <div className="menu">
+          <Button
+            id="algo-dropdown"
+            onClick={handleClick}
+            endIcon={<KeyboardArrowDownIcon aria-haspopup="true" />}
+          >
+            Visualize
+          </Button>
+          <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+            {Object.entries(algos).map(([name]) => (
+              <MenuItem key={name} onClick={() => runAlgo(name)}>
+                {name}
+              </MenuItem>
+            ))}
+          </Menu>
+          <Button
+            id="maze-dropdown"
+            onClick={handleClick}
+            endIcon={<KeyboardArrowDownIcon aria-haspopup="true" />}
+          >
+            Mazes & Patterns
+          </Button>
+          <Button onClick={clearPath}>Clear Path</Button>
+          <Button onClick={resetGrid}>Reset</Button>
+        </div>
       </Toolbar>
     </AppBar>
   );

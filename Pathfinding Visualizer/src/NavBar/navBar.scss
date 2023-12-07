@@ -1,9 +1,27 @@
 #navbar {
+  display: flex;
+  justify-content: space-around;
   width: 100%;
-  background-color: rgb(44, 43, 43);
-  margin-bottom: 20px;
+  background-color: black;
+  margin-bottom: 65px;
 }
-
+.toolbar {
+  justify-content: space-between;
+  align-items: center;
+}
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  h1 {
+    font-weight: 800;
+    margin-right: 10px;
+  }
+  h3 {
+    font-weight: 300;
+    font-style: italic;
+  }
+}
 #algo-dropdown {
   border: 1px solid white;
   color: white;

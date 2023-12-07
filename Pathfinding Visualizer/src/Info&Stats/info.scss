@@ -1,0 +1,15 @@
+
+.info-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.stats {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 30px;
+    padding-left: 20px;
+}
