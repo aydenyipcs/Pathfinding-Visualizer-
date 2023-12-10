@@ -1,3 +1,4 @@
+
 export const updateDistanceOfNeighbors = (grid, cell) => {
   const neighbors = getNeighbors(grid, cell);
   neighbors.forEach((neighbor) => {
@@ -69,7 +70,7 @@ export const animateAlgo = (
           updatedState.add(`cell-${cell.row}-${cell.col}`);
           return updatedState;
         });
-      }, index * animationSpeed);
+      }, index * animationSpeed * 1.5);
     });
   }, allCellsInOrder.length * animationSpeed);
 };

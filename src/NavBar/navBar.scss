@@ -3,11 +3,22 @@
   justify-content: space-around;
   width: 100%;
   background-color: black;
-  margin-bottom: 65px;
+  color: white;
 }
 .toolbar {
   justify-content: space-between;
   align-items: center;
+}
+.algoDescription {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin: 0;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  h1, h3 {
+    margin: 8px;
+  }
 }
 .title {
   display: flex;

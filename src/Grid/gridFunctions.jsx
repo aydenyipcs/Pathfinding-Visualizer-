@@ -1,6 +1,5 @@
-//Function to create a blank grid
 const NUM_ROW = 65;
-const NUM_COL = 30;
+const NUM_COL = 28;
 
 export const createBlankGrid = (startPosition, endPosition) => {
   const blankGrid = [];
@@ -25,6 +24,32 @@ const createCellData = (row, col, startPosition, endPosition) => {
     distance: Infinity,
     visited: false,
     wall: false,
-    prevCell: null
+    prevCell: null,
   };
+};
+
+export const clearPath = (
+  grid,
+  setGrid,
+  setAlgo,
+  setPathfindingAnimation,
+  setShortestPathAnimation,
+  setPathfindingLength,
+  setShortestPathLength
+) => {
+  //keep grid w walls and reset all other properties, empty sets with animation information
+  setPathfindingAnimation(new Set());
+  setShortestPathAnimation(new Set());
+  let newGrid = [...grid];
+  newGrid.forEach((row) => {
+    row.forEach((cell) => {
+      cell.visited = false;
+      cell.inList = false;
+      cell.prevCell = null;
+    });
+  });
+  setGrid(newGrid);
+  setPathfindingLength(0);
+  setShortestPathLength(0);
+  setAlgo("Select an Algorithm to Visualize");
 };

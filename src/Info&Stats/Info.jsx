@@ -36,8 +36,8 @@ const Info = () => {
         </List>
       </div>
       <div className="stats">
-        <div>Visited Cells: {pathfindingLength}</div>
-        <div>Path Length: {shortestPathLength}</div>
+        <h3>Visited Cells: {pathfindingLength}</h3>
+        <h3>Path Length: {shortestPathLength}</h3>
       </div>
     </div>
   );

@@ -8,6 +8,8 @@ import "./app.scss";
 export const GridContext = createContext();
 
 const App = () => {
+  const [algo, setAlgo] = useState("Select an Algorithm to Visualize");
+  const [isAnimating, setIsAnimating] = useState(false);
   const [startPosition, setStartPosition] = useState([5, 12]); //Default start position
   const [endPosition, setEndPosition] = useState([49, 12]); //Default end position
   const [grid, setGrid] = useState(() => createBlankGrid(startPosition, endPosition)); // Initialize Grid
@@ -21,6 +23,10 @@ const App = () => {
       value={{
         grid,
         setGrid,
+        algo,
+        setAlgo,
+        isAnimating,
+        setIsAnimating,
         startPosition,
         setStartPosition,
         endPosition,
@@ -37,7 +43,6 @@ const App = () => {
     >
       <div className="mainContainer">
         <NavBar />
-        {/* <Description /> */}
         <Grid />
         <Info />
       </div>

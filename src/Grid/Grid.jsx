@@ -1,17 +1,25 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { GridContext } from "../App.jsx";
 import Cell from "./Cell.jsx";
-import PropTypes from "prop-types";
 import "./Grid.scss";
-import { cellInfoPropTypes } from "../propTypes.jsx";
+import { clearPath } from "../Grid/gridFunctions.jsx";
+import { algos } from "../utils.jsx";
+import { getShortestPath} from "../Algorithms/algoFunctions.jsx";
 
 const Grid = () => {
   const {
     grid,
     setGrid,
+    algo,
+    setAlgo,
+    startPosition,
     setStartPosition,
+    endPosition,
     setEndPosition,
-    pathfindingAnimation,
+    setPathfindingLength,
+    setShortestPathLength,
+    setPathfindingAnimation,
+    setShortestPathAnimation,
   } = useContext(GridContext);
 
   const [mousePressed, setMousePressed] = useState(false);
@@ -34,38 +42,35 @@ const Grid = () => {
     };
   }, [mousePressed]);
 
+  useEffect(() => {
+    if (algo !== "Select an Algorithm to Visualize") {
+      updatePathfinding();
+    }
+  }, [dragCell]);
+
   const handleMouseDown = (row, col) => {
     setMousePressed(true);
     const cell = grid[row][col];
-    if (cell.start) {
-      setDragCell({ type: "start", row, col });
-    } else if (cell.end) {
-      setDragCell({ type: "end", row, col });
-    } else {
-      setGrid(addWallsToGrid(row, col))
-    }
+    const cellType = cell.start ? "start" : cell.end ? "end" : "wall";
+    setDragCell({ type: cellType, row, col });
+    if (cellType === "wall") updateCell(row, col, cellType);
   };
 
   const handleMouseOver = (row, col) => {
-    if (!mousePressed) return;
-    if (dragCell.type && (dragCell.row !== row || dragCell.col !== col)) {
-      setGrid((prevGrid) => {
-        const updatedGrid = [...prevGrid];
-        updatedGrid[dragCell.row][dragCell.col][dragCell.type] = false;
-        updatedGrid[row][col][dragCell.type] = true;
-        return updatedGrid;
-      });
-      setDragCell({ ...dragCell, row, col });
-    } else {
-      if (!grid[row][col].wall) setGrid(addWallsToGrid(row, col));
-    }
+    if (
+      !mousePressed ||
+      !dragCell.type ||
+      (dragCell.row === row && dragCell.col === col)
+    )
+      return;
+    updateCell(row, col, dragCell.type);
+    setDragCell({ ...dragCell, row, col });
+    if (dragCell.type === "start") setStartPosition([row, col]);
+    if (dragCell.type === "end") setEndPosition([row, col]);
   };
 
   const handleMouseUp = () => {
     setMousePressed(false);
-    if (dragCell.type === "start")
-      setStartPosition([dragCell.row, dragCell.col]);
-    if (dragCell.type === "end") setEndPosition([dragCell.row, dragCell.col]);
     setDragCell({ type: null, row: null, col: null });
   };
 
@@ -75,10 +80,64 @@ const Grid = () => {
     onMouseUp: handleMouseUp,
   };
 
-  const addWallsToGrid = (row, col) => {
-      const updatedGrid = [...grid];
-      updatedGrid[row][col].wall = !updatedGrid[row][col].wall; //reverse the state - wall or cell
-      return updatedGrid;
+  const updateCell = (cellRow, cellCol, cellType) => {
+    setGrid((currGrid) => {
+      const newGrid = currGrid.map((row, rowIndex) => {
+        return row.map((cell, colIndex) => {
+          //make prev start/end cell false
+          if (
+            cell[cellType] === true &&
+            (cellType === "start" || cellType === "end")
+          )
+            return { ...cell, [cellType]: false };
+          //update correct cell to be opposite of what it originally was
+          if (rowIndex === cellRow && colIndex === cellCol)
+            return { ...cell, [cellType]: !cell[cellType] };
+          //return cell if neither condition is true
+          return cell;
+        });
+      });
+      return newGrid;
+    });
+  };
+
+  const updatePathfinding = () => {
+    const algoToRun = algo;
+    clearPath(
+      grid,
+      setGrid,
+      setAlgo,
+      setPathfindingAnimation,
+      setShortestPathAnimation,
+      setPathfindingLength,
+      setShortestPathLength
+    );
+    const startCell = grid[startPosition[0]][startPosition[1]];
+    const endCell = grid[endPosition[0]][endPosition[1]];
+    const allCellsInOrder = algos[algoToRun](grid, startCell, endCell);
+    const shortestPath = getShortestPath(
+      allCellsInOrder[allCellsInOrder.length - 1]
+    );
+    //Set distance traveled for path
+    setPathfindingLength(allCellsInOrder.length - 1);
+    setShortestPathLength(shortestPath.length - 1);
+    setAlgo(algoToRun);
+    //remove start and end cells from both animations
+    allCellsInOrder.shift();
+    allCellsInOrder.pop();
+    shortestPath.shift();
+    shortestPath.pop();
+    //Update the animation state
+    const updatedPathfinding = new Set();
+    const updatedShortest = new Set();
+    allCellsInOrder.forEach((cell) => {
+      updatedPathfinding.add(`cell-${cell.row}-${cell.col}`);
+    });
+    shortestPath.forEach((cell) => {
+      updatedShortest.add(`cell-${cell.row}-${cell.col}`);
+    });
+    setPathfindingAnimation(updatedPathfinding);
+    setShortestPathAnimation(updatedShortest);
   };
 
   return (
