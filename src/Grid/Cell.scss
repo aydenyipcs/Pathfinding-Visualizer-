@@ -1,20 +1,25 @@
 .cell {
-    aspect-ratio: 1;
-    border: 0.8px solid #7DF9FF;
-    width: 100%;
-}
-.start {
-    background-color: rgb(23, 183, 23);
-}
-.end {
-    background-color: rgb(226, 43, 43);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  border: 0.8px solid white;
+  width: 100%;
+  font-size: 25px;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .wall {
-    background-color: #36454F;
+  background-color: #36454f;
+
+
 }
 .pathfinding {
-    background-color: #D3D3D3;
+  background-color: #d3d3d3;
 }
 .shortestPath {
-    background-color: #FFD700;
+  background-color: #ffd700;
 }

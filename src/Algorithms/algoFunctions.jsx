@@ -1,4 +1,5 @@
 
+//find neighbors and change their distance and prevCell property
 export const updateDistanceOfNeighbors = (grid, cell) => {
   const neighbors = getNeighbors(grid, cell);
   neighbors.forEach((neighbor) => {
@@ -47,13 +48,14 @@ export const animateAlgo = (
   shortestPath,
   setPathfindingAnimation,
   setShortestPathAnimation,
+  setIsAnimating,
   animationSpeed = 5 //change speed of pathfinding and shortestPath animation here
 ) => {
-  allCellsInOrder.shift(); //remove start and end cells from both animations
-  allCellsInOrder.pop();
-  shortestPath.shift();
-  shortestPath.pop();
-  allCellsInOrder.forEach((cell, index) => {
+  // allCellsInOrder.shift(); //remove start and end cells from both animations
+  // allCellsInOrder.pop();
+  // shortestPath.shift();
+  // shortestPath.pop();
+  allCellsInOrder.forEach((cell, index) => { //Pathfinding Animation 
     setTimeout(() => {
       setPathfindingAnimation((prevState) => {
         const updatedState = new Set(prevState);
@@ -62,7 +64,7 @@ export const animateAlgo = (
       });
     }, index * animationSpeed);
   });
-  setTimeout(() => {
+  setTimeout(() => { //Shortest Path animation after pathfinding is complete 
     shortestPath.forEach((cell, index) => {
       setTimeout(() => {
         setShortestPathAnimation((prevState) => {
@@ -70,7 +72,12 @@ export const animateAlgo = (
           updatedState.add(`cell-${cell.row}-${cell.col}`);
           return updatedState;
         });
-      }, index * animationSpeed * 1.5);
+      }, index * animationSpeed * 2.5);
     });
   }, allCellsInOrder.length * animationSpeed);
+
+  const totalAnimationTime = allCellsInOrder.length * animationSpeed + (shortestPath.length * animationSpeed * 2.5);
+  setTimeout(() => { //Set animation to false when done animating
+    setIsAnimating(false)
+  }, totalAnimationTime)
 };

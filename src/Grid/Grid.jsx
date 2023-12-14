@@ -4,7 +4,7 @@ import Cell from "./Cell.jsx";
 import "./Grid.scss";
 import { clearPath } from "../Grid/gridFunctions.jsx";
 import { algos } from "../utils.jsx";
-import { getShortestPath} from "../Algorithms/algoFunctions.jsx";
+import { getShortestPath } from "../Algorithms/algoFunctions.jsx";
 
 const Grid = () => {
   const {
@@ -12,6 +12,8 @@ const Grid = () => {
     setGrid,
     algo,
     setAlgo,
+    isAnimating,
+    setIsAnimating,
     startPosition,
     setStartPosition,
     endPosition,
@@ -49,6 +51,7 @@ const Grid = () => {
   }, [dragCell]);
 
   const handleMouseDown = (row, col) => {
+    if (isAnimating) return; //if animation in-prog, dont do anything
     setMousePressed(true);
     const cell = grid[row][col];
     const cellType = cell.start ? "start" : cell.end ? "end" : "wall";
@@ -57,12 +60,14 @@ const Grid = () => {
   };
 
   const handleMouseOver = (row, col) => {
+    if (isAnimating) return;
     if (
       !mousePressed ||
       !dragCell.type ||
       (dragCell.row === row && dragCell.col === col)
     )
       return;
+    if((dragCell.type === "start" || dragCell.type === "end") && (grid[row][col].start || grid[row][col].end)) return;
     updateCell(row, col, dragCell.type);
     setDragCell({ ...dragCell, row, col });
     if (dragCell.type === "start") setStartPosition([row, col]);
@@ -70,6 +75,7 @@ const Grid = () => {
   };
 
   const handleMouseUp = () => {
+    if (isAnimating) return;
     setMousePressed(false);
     setDragCell({ type: null, row: null, col: null });
   };
@@ -91,8 +97,10 @@ const Grid = () => {
           )
             return { ...cell, [cellType]: false };
           //update correct cell to be opposite of what it originally was
-          if (rowIndex === cellRow && colIndex === cellCol)
+          if (rowIndex === cellRow && colIndex === cellCol) {
+            if((cellType === "start" || cellType === "end") && (currGrid[cellRow][cellCol].wall)) return { ...cell, [cellType]: !cell[cellType], wall: false };
             return { ...cell, [cellType]: !cell[cellType] };
+          }
           //return cell if neither condition is true
           return cell;
         });
@@ -122,11 +130,7 @@ const Grid = () => {
     setPathfindingLength(allCellsInOrder.length - 1);
     setShortestPathLength(shortestPath.length - 1);
     setAlgo(algoToRun);
-    //remove start and end cells from both animations
-    allCellsInOrder.shift();
-    allCellsInOrder.pop();
-    shortestPath.shift();
-    shortestPath.pop();
+   
     //Update the animation state
     const updatedPathfinding = new Set();
     const updatedShortest = new Set();

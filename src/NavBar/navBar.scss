@@ -37,3 +37,9 @@
   border: 1px solid white;
   color: white;
 }
+#maze-dropdown {
+  color: white;
+}
+#resetButton:disabled, #clearPathButton:disabled, #maze-dropdown:disabled, #algo-dropdown:disabled {
+  color: red;
+}
