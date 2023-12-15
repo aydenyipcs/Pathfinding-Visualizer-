@@ -72,7 +72,7 @@ const NavBar = () => {
   const runAlgo = (algo) => {
     setIsAnimating(true); //set to true to begin animation
     console.log(grid[startPosition[0]][startPosition[1]]);
-    console.log(grid[endPosition[0]][endPosition[1]])
+    console.log(grid[endPosition[0]][endPosition[1]]);
     clearPath(
       grid,
       setGrid,
@@ -113,31 +113,63 @@ const NavBar = () => {
     setIsAnimating(false);
   };
 
-  const animateMaze = (walls, maze) => {
+  // const animateMaze = (walls, maze) => {
+  //   setGrid((currGrid) => {
+  //     const newGrid = currGrid.map((row) => {
+  //       return row.map((cell) => {
+  //         if (!cell.start && !cell.end) return { ...cell, wall: true };
+  //         return cell;
+  //       });
+  //     });
+  //     return newGrid;
+  //   });
+  //   walls.forEach((wall, index) => {
+  //     setTimeout(() => {
+  //       setGrid((currGrid) => {
+  //         const newGrid = [...currGrid];
+  //         newGrid[wall.row][wall.col].wall = true;
+  //         return newGrid;
+  //       });
+  //     }, index * 5);
+  //   });
+    // if(maze === "Prim's Algorithm" || maze === "Random Maze") {
+    //   setTimeout(() => {
+    //     setGrid((currGrid) => {
+    //       const newGrid = currGrid.map(row => {
+    //         return row.map(cell => {
+    //           if(!cell.start && !cell.end) return {...cell, wall: !cell.wall}
+    //           return cell;
+    //         })
+    //       })
+    //       return newGrid;
+    //     })
+    //   },walls.length * 5 + 10)
+    // }
+  // };
+  const animateMaze = (walls) => {
+    // First, set all cells to be walls
+    setGrid((currGrid) => {
+      const newGrid = currGrid.map(row => {
+        return row.map(cell => {
+          return {...cell, wall: true}; // Set every cell as a wall
+        });
+      });
+      return newGrid;
+    });
+  
+    // Animate the removal of walls based on the 'walls' array
     walls.forEach((wall, index) => {
       setTimeout(() => {
         setGrid((currGrid) => {
           const newGrid = [...currGrid];
-          newGrid[wall.row][wall.col].wall = true;
+          newGrid[wall.row][wall.col].wall = false; // Set the specific cell as not a wall
           return newGrid;
         });
-      }, index * 5);
+      }, index * 5); // Adjust the delay as needed for the animation speed
     });
-    if(maze === "Prim's Algorithm") {
-      setTimeout(() => {
-        setGrid((currGrid) => {
-          const newGrid = currGrid.map(row => {
-            return row.map(cell => {
-              if(!cell.start && !cell.end) return {...cell, wall: !cell.wall}
-              return cell;
-            })
-          })
-          return newGrid;
-        })
-      },walls.length * 5 + 10)
-    }
   };
-
+  
+  
 
   return (
     <div>

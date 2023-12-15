@@ -5,6 +5,7 @@ import bfs from "./Algorithms/bfs.jsx";
 import dfs from "./Algorithms/DFS.jsx";
 import recursiveDivision  from "./Mazes/RecursiveDivision";
 import prim from "./Mazes/Prims";
+import random from "./Mazes/random";
 
 export const algos = {
   "Dijkstra's Algorithm": dijkstra,
@@ -25,6 +26,7 @@ export const algoDescription = {
 };
 
 export const mazes = {
+    "Random Maze": random,
     "Recursive Division": recursiveDivision,
     "Prim's Algorithm" : prim
 }
