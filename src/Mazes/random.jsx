@@ -1,4 +1,4 @@
-const random = (grid) => {
+const random = (grid, start, end) => {
   const frontiers = new Set();
   const inside = new Set();
   const startCell = chooseRandomCell(grid);
@@ -22,16 +22,16 @@ const random = (grid) => {
     }
 
   }
-//   let count = 0;
-//   getNeighbors(grid, start).forEach((n) => {
-//     count += !n.visited ? 1 : 0;
-//   });
-//   if (count === 4) path.push(grid[start.row + 1][start.col]);
-//   count = 0;
-//   getNeighbors(grid, end).forEach((n) => {
-//     count += !n.visited ? 1 : 0;
-//   });
-//   if (count === 4) path.push(grid[end.row + 1][end.col]);
+  let count = 0;
+  getNeighbors(grid, start).forEach((n) => {
+    count += !n.visited ? 1 : 0;
+  });
+  if (count === 4) inside.add(grid[start.row + 1][start.col]);
+  count = 0;
+  getNeighbors(grid, end).forEach((n) => {
+    count += !n.visited ? 1 : 0;
+  });
+  if (count === 4) inside.add(grid[end.row + 1][end.col]);
 
   return shuffleArray(Array.from(inside));
 };
