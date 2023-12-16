@@ -13,6 +13,7 @@ import "./navBar.scss";
 import { createBlankGrid, clearPath } from "../Grid/gridFunctions.jsx";
 import { getShortestPath, animateAlgo } from "../Algorithms/algoFunctions.jsx";
 import { algos, algoDescription, mazes } from "../utils.jsx";
+import { animateMaze } from "../Mazes/mazeFunctions.jsx";
 
 const NavBar = () => {
   const {
@@ -107,67 +108,10 @@ const NavBar = () => {
     const start = grid[startPosition[0]][startPosition[1]];
     const end = grid[endPosition[0]][endPosition[1]];
     const steps = mazes[maze](grid, start, end);
-    animateMaze(steps, maze);
+    animateMaze(steps, maze, setGrid);
     setIsAnimating(false);
   };
-
-  // const animateMaze = (walls, maze) => {
-  //   setGrid((currGrid) => {
-  //     const newGrid = currGrid.map((row) => {
-  //       return row.map((cell) => {
-  //         if (!cell.start && !cell.end) return { ...cell, wall: true };
-  //         return cell;
-  //       });
-  //     });
-  //     return newGrid;
-  //   });
-  //   walls.forEach((wall, index) => {
-  //     setTimeout(() => {
-  //       setGrid((currGrid) => {
-  //         const newGrid = [...currGrid];
-  //         newGrid[wall.row][wall.col].wall = true;
-  //         return newGrid;
-  //       });
-  //     }, index * 5);
-  //   });
-  // if(maze === "Prim's Algorithm" || maze === "Random Maze") {
-  //   setTimeout(() => {
-  //     setGrid((currGrid) => {
-  //       const newGrid = currGrid.map(row => {
-  //         return row.map(cell => {
-  //           if(!cell.start && !cell.end) return {...cell, wall: !cell.wall}
-  //           return cell;
-  //         })
-  //       })
-  //       return newGrid;
-  //     })
-  //   },walls.length * 5 + 10)
-  // }
-  // };
-  const animateMaze = (walls) => {
-    // First, set all cells to be walls
-    setGrid((currGrid) => {
-      const newGrid = currGrid.map((row) => {
-        return row.map((cell) => {
-          if (!cell.start && !cell.end) return { ...cell, wall: true };
-          return cell; // Set every cell as a wall
-        });
-      });
-      return newGrid;
-    });
-
-    // Animate the removal of walls based on the 'walls' array
-    walls.forEach((wall, index) => {
-      setTimeout(() => {
-        setGrid((currGrid) => {
-          const newGrid = [...currGrid];
-          newGrid[wall.row][wall.col].wall = false; // Set the specific cell as not a wall
-          return newGrid;
-        });
-      }, index * 5); // Adjust the delay as needed for the animation speed
-    });
-  };
-
+ 
   return (
     <div>
       <AppBar position="static" id="navbar">

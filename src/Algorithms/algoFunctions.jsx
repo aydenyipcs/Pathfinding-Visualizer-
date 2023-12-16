@@ -51,10 +51,6 @@ export const animateAlgo = (
   setIsAnimating,
   animationSpeed = 5 //change speed of pathfinding and shortestPath animation here
 ) => {
-  // allCellsInOrder.shift(); //remove start and end cells from both animations
-  // allCellsInOrder.pop();
-  // shortestPath.shift();
-  // shortestPath.pop();
   allCellsInOrder.forEach((cell, index) => { //Pathfinding Animation 
     setTimeout(() => {
       setPathfindingAnimation((prevState) => {
