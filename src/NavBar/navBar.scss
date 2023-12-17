@@ -2,7 +2,10 @@
   display: flex;
   justify-content: space-around;
   width: 100vw;
-  height:8vh;
+  height: 7vh;
+  margin: 0;
+  padding: 0;
+  font-size: 0.8vw;
   background-color: black;
   color: white;
 }
@@ -10,15 +13,22 @@
   justify-content: space-between;
   align-items: center;
 }
+.menu {
+  margin-right: 1vw;
+}
 .algoDescription {
+  height: 6vh;
   display: flex;
-  align-items: baseline;
+  flex-direction: row;
   justify-content: center;
+  align-items: baseline;
+  font-size: 1.5vh;
   margin: 0;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  h1, h3 {
-    margin: 8px;
+  margin-bottom: 1vh;
+  padding: 0;
+  h1,
+  h3 {
+    margin-right: 0.5vw;
   }
 }
 .title {
@@ -27,20 +37,50 @@
   align-items: center;
   h1 {
     font-weight: 800;
-    margin-right: 10px;
+    margin-right: 1vw;
   }
   h3 {
     font-weight: 300;
     font-style: italic;
   }
 }
+#algo-dropdown, #maze-dropdown {
+  font-size: 1rem;
+  color: white;
+  margin-right: 0.2vw;
+  transition: color 0.3s ease;
+  &:hover {
+    color: #C0C0C0;
+  }
+}
 #algo-dropdown {
-  border: 1px solid white;
-  color: white;
+  border: 1px solid white
 }
-#maze-dropdown {
-  color: white;
+
+.MuiMenu-root .MuiMenuItem-root {
+  font-size: 1.1rem;
+  color: black;
+
+  &:hover {
+    background-color: lightgrey;
+  }
 }
-#resetButton:disabled, #clearPathButton:disabled, #maze-dropdown:disabled, #algo-dropdown:disabled {
+#clearPathButton,
+#resetButton,
+#speed-dropdown {
+  font-size: 1rem;
+  margin-right: 0.2vw;
+  transition: color 0.3s ease, opacity 0.3 ease;
+  &:hover {
+    color: #7DF9FF;
+    opacity: 0.8;
+  }
+}
+
+#resetButton:disabled,
+#clearPathButton:disabled,
+#maze-dropdown:disabled,
+#algo-dropdown:disabled,
+#speed-dropdown:disabled {
   color: red;
 }

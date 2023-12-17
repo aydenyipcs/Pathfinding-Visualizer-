@@ -30,3 +30,14 @@ export const mazes = {
     "Recursive Division": recursiveDivision,
     "Prim's Algorithm" : prim
 }
+export const mazeDescription = {
+  "Random Maze": "was custom made for fun :)",
+  "Recursive Division": "divides a space recursively until a condition is met",
+  "Prim's Algorithm" : "creates a minimum spanning tree"
+}
+export const speeds = {
+  "Slow": 10,
+  "Average": 5,
+  "Fast": 2.5,
+  "Instant": 0
+}

@@ -12,7 +12,7 @@ import { Menu, MenuItem, MenuList } from "@mui/material";
 import "./navBar.scss";
 import { createBlankGrid, clearPath } from "../Grid/gridFunctions.jsx";
 import { getShortestPath, animateAlgo } from "../Algorithms/algoFunctions.jsx";
-import { algos, algoDescription, mazes } from "../utils.jsx";
+import { algos, algoDescription, mazes, speeds } from "../utils.jsx";
 import { animateMaze } from "../Mazes/mazeFunctions.jsx";
 
 const NavBar = () => {
@@ -33,21 +33,11 @@ const NavBar = () => {
     setShortestPathLength,
   } = useContext(GridContext);
 
-  const DropDown = () => {
-    //Menu drop-down component w/ functions
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (e) => {
-      setAnchorEl(e.target);
-    };
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-    return { anchorEl, open, handleClick, handleClose };
-  };
-
-  const algoDropDown = DropDown(); // seperate drop-downs for algos and mazes
+  const [animationSpeed, setAnimationSpeed] = useState(5);
+  const [speedLabel, setSpeedLabel] = useState("Average");
+  const algoDropDown = DropDown(); //drop-downs for algos and mazes and speeds
   const mazeDropDown = DropDown();
+  const speedDropDown = DropDown();
 
   const resetGrid = () => {
     const defaultStart = [6, 13];
@@ -61,6 +51,7 @@ const NavBar = () => {
     setShortestPathLength(0);
     setAlgo("Select an Algorithm to Visualize");
   };
+
   const resetGridMaze = () => {
     setGrid(createBlankGrid(startPosition, endPosition));
     setPathfindingAnimation(new Set());
@@ -98,7 +89,8 @@ const NavBar = () => {
       shortestPath,
       setPathfindingAnimation,
       setShortestPathAnimation,
-      setIsAnimating
+      setIsAnimating,
+      animationSpeed
     );
   };
 
@@ -108,10 +100,9 @@ const NavBar = () => {
     const start = grid[startPosition[0]][startPosition[1]];
     const end = grid[endPosition[0]][endPosition[1]];
     const steps = mazes[maze](grid, start, end);
-    animateMaze(steps, maze, setGrid);
-    setIsAnimating(false);
+    animateMaze(steps, maze, setGrid, setIsAnimating, animationSpeed);
   };
- 
+
   return (
     <div>
       <AppBar position="static" id="navbar">
@@ -136,7 +127,13 @@ const NavBar = () => {
               onClose={algoDropDown.handleClose}
             >
               {Object.entries(algos).map(([name]) => (
-                <MenuItem key={name} onClick={() => runAlgo(name)}>
+                <MenuItem
+                  key={name}
+                  onClick={() => {
+                    runAlgo(name);
+                    algoDropDown.handleClose();
+                  }}
+                >
                   {name}
                 </MenuItem>
               ))}
@@ -155,8 +152,40 @@ const NavBar = () => {
               onClose={mazeDropDown.handleClose}
             >
               {Object.entries(mazes).map(([name]) => (
-                <MenuItem key={name} onClick={() => runMaze(name)}>
+                <MenuItem
+                  key={name}
+                  onClick={() => {
+                    runMaze(name);
+                    mazeDropDown.handleClose();
+                  }}
+                >
                   {name}
+                </MenuItem>
+              ))}
+            </Menu>
+            <Button
+              disabled={isAnimating}
+              id="speed-dropdown"
+              onClick={speedDropDown.handleClick}
+              endIcon={<KeyboardArrowDownIcon aria-haspopup="true" />}
+            >
+              Speed: {speedLabel}
+            </Button>
+            <Menu
+              anchorEl={speedDropDown.anchorEl}
+              open={speedDropDown.open}
+              onClose={speedDropDown.handleClose}
+            >
+              {Object.entries(speeds).map(([speed]) => (
+                <MenuItem
+                  key={speed}
+                  onClick={() => {
+                    setAnimationSpeed(speeds[speed]);
+                    setSpeedLabel(speed);
+                    speedDropDown.handleClose();
+                  }}
+                >
+                  {speed}
                 </MenuItem>
               ))}
             </Menu>
@@ -184,10 +213,23 @@ const NavBar = () => {
         </Toolbar>
       </AppBar>
       <div className="algoDescription">
-        <h1>{algo}</h1>...<h3>{algoDescription[algo]}</h3>
+        <h1>{algo}</h1>
+        <h3>...{algoDescription[algo]}</h3>
       </div>
     </div>
   );
 };
 
 export default NavBar;
+const DropDown = () => {
+  //Menu drop-down component w/ functions
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (e) => {
+    setAnchorEl(e.target);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  return { anchorEl, open, handleClick, handleClose };
+};
