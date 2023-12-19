@@ -5,7 +5,8 @@ import bfs from "./Algorithms/bfs.jsx";
 import dfs from "./Algorithms/DFS.jsx";
 import recursiveDivision from "./Mazes/RecursiveDivision";
 import prim from "./Mazes/Prims";
-import random from "./Mazes/random";
+import random from "./Mazes/Random";
+import recursiveBacktracking from "./Mazes/RecusiveBacktracking";
 
 export const algos = {
   "Dijkstra's Algorithm": dijkstra,
@@ -26,12 +27,14 @@ export const descriptions = {
   "Random Maze": "was custom made for fun :)",
   "Recursive Division": "divides a space recursively until a condition is met",
   "Prim's Algorithm": "creates a minimum spanning tree",
+  "Recursive Backtracking": "recursively explores and carves paths"
 };
 
 export const mazes = {
   "Random Maze": random,
   "Recursive Division": recursiveDivision,
   "Prim's Algorithm": prim,
+  "Recursive Backtracking": recursiveBacktracking
 };
 
 export const speeds = {

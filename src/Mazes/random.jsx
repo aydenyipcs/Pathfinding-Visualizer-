@@ -1,3 +1,5 @@
+import { getNeighbors, chooseRandomCell } from "./mazeFunctions";
+
 const random = (grid, start, end) => {
   const frontiers = new Set();
   const inside = new Set();
@@ -45,16 +47,6 @@ const addFrontiers = (cell, grid, frontiers) => {
   if (y < grid[0].length - 2 && !grid[x][y + 2].visited)
     frontiers.add([x, y + 1, x, y + 2]);
 };
-
-const chooseRandomCell = (grid) => {
-  const randomRow = Math.floor(Math.random() * grid.length);
-  const randomCol = Math.floor(Math.random() * grid[0].length);
-  if (!grid[randomRow][randomCol].start && !grid[randomRow][randomCol].end) {
-    return grid[randomRow][randomCol];
-  } else {
-    return chooseRandomCell(grid);
-  }
-};
 const getRandomFrontier = (frontiers) => {
   const num = Math.floor(Math.random() * frontiers.size);
   let index = 0;
@@ -71,22 +63,5 @@ const shuffleArray = (array) => {
     }
     return array;
   };
-const getNeighbors = (grid, cell) => {
-  const neighbors = [];
-  const directions = [
-    [1, 0],
-    [0, 1],
-    [-1, 0],
-    [0, -1],
-  ];
-  const { row, col } = cell;
-  directions.forEach(([x, y]) => {
-    const nx = row + x,
-      ny = col + y;
-    if (nx >= 0 && nx <= grid.length && ny >= 0 && ny <= grid[0].length)
-      neighbors.push(grid[nx][ny]);
-  });
-  return neighbors;
-};
 
 export default random;

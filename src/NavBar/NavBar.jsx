@@ -36,6 +36,7 @@ const NavBar = () => {
 
   const [animationSpeed, setAnimationSpeed] = useState(5);
   const [speedLabel, setSpeedLabel] = useState("Average");
+  
   const algoDropDown = DropDown(); //drop-downs for algos and mazes and speeds
   const mazeDropDown = DropDown();
   const speedDropDown = DropDown();
@@ -93,13 +94,13 @@ const NavBar = () => {
   };
 
   const runMaze = (maze) => {
-      const startCell = grid[startPosition[0]][startPosition[1]];
-      const endCell = grid[endPosition[0]][endPosition[1]];
-      const tempGrid = createBlankGrid(start(),end())
-      const steps = mazes[maze](tempGrid, startCell, endCell);
-      setDescription(maze);
-      resetGridMaze()
-      animateMaze(steps, maze, setGrid, setIsAnimating, animationSpeed);
+    const startCell = grid[startPosition[0]][startPosition[1]];
+    const endCell = grid[endPosition[0]][endPosition[1]];
+    const tempGrid = createBlankGrid(start(), end());
+    const steps = mazes[maze](tempGrid, startCell, endCell);
+    setDescription(maze);
+    resetGridMaze();
+    animateMaze(steps, maze, setGrid, setIsAnimating, animationSpeed);
   };
 
   return (

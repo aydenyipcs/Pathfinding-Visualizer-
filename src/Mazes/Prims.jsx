@@ -1,3 +1,5 @@
+import { getNeighbors, chooseRandomCell } from "./mazeFunctions";
+
 const prim = (grid, start, end) => {
   const startCell = chooseRandomCell(grid);
   const { row, col } = startCell;
@@ -42,26 +44,6 @@ const getFrontiers = (grid, x, y) => {
   if (y < grid[0].length - 2 && !grid[x][y + 2].visited)
     frontiers.push([x, y + 1, x, y + 2]);
   return frontiers;
-};
-
-const chooseRandomCell = (grid) => {
-  const randomRow = Math.floor(Math.random() * grid.length);
-  const randomCol = Math.floor(Math.random() * grid[0].length);
-  if (!grid[randomRow][randomCol].start && !grid[randomRow][randomCol].end) {
-    return grid[randomRow][randomCol];
-  } else {
-    return chooseRandomCell(grid);
-  }
-};
-
-const getNeighbors = (grid, cell) => {
-  const neighbors = [];
-  const { row, col } = cell;
-  if (row > 0) neighbors.push(grid[row - 1][col]);
-  if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
-  if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
-  if (col > 0) neighbors.push(grid[row][col - 1]);
-  return neighbors;
 };
 
 export default prim;
