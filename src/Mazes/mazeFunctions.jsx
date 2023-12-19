@@ -27,7 +27,7 @@ export const animateMaze = (
   animationSpeed = 5
 ) => {
   console.log(walls.length);
-  if (maze === "Prim's Algorithm" || maze === "Random Maze" || maze === "Recursive Backtracking") {
+  if (maze === "Prim's Algorithm" || maze === "Random Maze" || maze === "Recursive Backtracking" || maze === "Binary Tree") {
     setGrid((currGrid) => {
       const newGrid = currGrid.map((row) => {
         return row.map((cell) => {

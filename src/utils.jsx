@@ -7,6 +7,7 @@ import recursiveDivision from "./Mazes/RecursiveDivision";
 import prim from "./Mazes/Prims";
 import random from "./Mazes/Random";
 import recursiveBacktracking from "./Mazes/RecusiveBacktracking";
+import binaryTree from "./Mazes/binaryTree";
 
 export const algos = {
   "Dijkstra's Algorithm": dijkstra,
@@ -27,19 +28,21 @@ export const descriptions = {
   "Random Maze": "was custom made for fun :)",
   "Recursive Division": "divides a space recursively until a condition is met",
   "Prim's Algorithm": "creates a minimum spanning tree",
-  "Recursive Backtracking": "recursively explores and carves paths"
+  "Recursive Backtracking": "recursively explores and carves paths",
+  "Binary Tree": "creates a maze with a diagonal bias"
 };
 
 export const mazes = {
   "Random Maze": random,
   "Recursive Division": recursiveDivision,
+  "Recursive Backtracking": recursiveBacktracking,
   "Prim's Algorithm": prim,
-  "Recursive Backtracking": recursiveBacktracking
+  "Binary Tree": binaryTree
 };
 
 export const speeds = {
   Slow: 10,
   Average: 5,
-  Fast: 2.5,
+  Fast: 3,
   Instant: 0,
 };
