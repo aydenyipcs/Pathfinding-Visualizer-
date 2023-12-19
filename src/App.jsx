@@ -2,16 +2,16 @@ import React, { createContext, useState, useEffect } from "react";
 import Grid from "./Grid/Grid";
 import Info from "./Info&Stats/Info";
 import NavBar from "./NavBar/NavBar";
-import { createBlankGrid } from "./Grid/gridFunctions.jsx";
+import { createBlankGrid, start, end } from "./Grid/gridFunctions.jsx";
 import "./app.scss";
 
 export const GridContext = createContext();
 
 const App = () => {
-  const [algo, setAlgo] = useState("Select an Algorithm to Visualize");
+  const [description, setDescription] = useState("Select an Algorithm to Visualize");
   const [isAnimating, setIsAnimating] = useState(false);
-  const [startPosition, setStartPosition] = useState([6, 13]); //Default start position
-  const [endPosition, setEndPosition] = useState([58, 13]); //Default end position
+  const [startPosition, setStartPosition] = useState(() => start()); //Default start position
+  const [endPosition, setEndPosition] = useState(end()); //Default end position
   const [grid, setGrid] = useState(() => createBlankGrid(startPosition, endPosition)); // Initialize Grid
   const [pathfindingAnimation, setPathfindingAnimation] = useState(new Set()); //list of cells for animation 1
   const [shortestPathAnimation, setShortestPathAnimation] = useState(new Set()); //list of cells for animation 2
@@ -23,8 +23,8 @@ const App = () => {
       value={{
         grid,
         setGrid,
-        algo,
-        setAlgo,
+        description,
+        setDescription,
         isAnimating,
         setIsAnimating,
         startPosition,

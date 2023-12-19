@@ -1,8 +1,7 @@
-
 let NUM_ROW = Math.floor(window.innerWidth / 30);
-let NUM_COL = Math.floor(window.innerHeight * 0.78 / 30)
-NUM_ROW =  NUM_ROW > 80 ? NUM_ROW * 0.6 : NUM_ROW
-NUM_COL =  NUM_COL > 35 ? NUM_COL * 0.6 : NUM_COL
+let NUM_COL = Math.floor((window.innerHeight * 0.78) / 30);
+NUM_ROW = NUM_ROW > 80 ? NUM_ROW * 0.6 : NUM_ROW;
+NUM_COL = NUM_COL > 35 ? NUM_COL * 0.6 : NUM_COL;
 
 export const createBlankGrid = (startPosition, endPosition) => {
   const blankGrid = [];
@@ -31,10 +30,26 @@ const createCellData = (row, col, startPosition, endPosition) => {
   };
 };
 
+export const start = () => {
+  let NUM_ROW = Math.floor(window.innerWidth / 30);
+  let NUM_COL = Math.floor((window.innerHeight * 0.78) / 30);
+  NUM_ROW = NUM_ROW > 80 ? Math.floor(NUM_ROW * 0.6) : NUM_ROW;
+  NUM_COL = NUM_COL > 35 ? Math.floor(NUM_COL * 0.6) : NUM_COL;
+
+  return [ Math.floor(NUM_ROW /8),Math.floor(NUM_COL / 2 - 1)]
+};
+export const end = () => {
+  let NUM_ROW = Math.floor(window.innerWidth / 30);
+  let NUM_COL = Math.floor((window.innerHeight * 0.78) / 30);
+  NUM_ROW = NUM_ROW > 80 ? Math.floor(NUM_ROW * 0.6) : NUM_ROW;
+  NUM_COL = NUM_COL > 35 ? Math.floor(NUM_COL * 0.6) : NUM_COL;
+
+  return [ Math.floor(NUM_ROW / 8 * 7),Math.floor(NUM_COL / 2 - 1)]
+};
 export const clearPath = (
   grid,
   setGrid,
-  setAlgo,
+  setDescription,
   setPathfindingAnimation,
   setShortestPathAnimation,
   setPathfindingLength,
@@ -54,5 +69,5 @@ export const clearPath = (
   setGrid(newGrid);
   setPathfindingLength(0);
   setShortestPathLength(0);
-  setAlgo("Select an Algorithm to Visualize");
+  setDescription("Select an Algorithm to Visualize");
 };

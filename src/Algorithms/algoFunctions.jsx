@@ -70,7 +70,7 @@ export const animateAlgo = (
           updatedState.add(`cell-${cell.row}-${cell.col}`);
           return updatedState;
         });
-      }, index * animationSpeed * 2.5);
+      }, index * animationSpeed * 3);
     });
   }, allCellsInOrder.length * animationSpeed);
 

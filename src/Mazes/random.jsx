@@ -20,8 +20,8 @@ const random = (grid, start, end) => {
       if (!cell2.start && !cell2.end) inside.add(cell2);
       addFrontiers(cell2, grid, frontiers);
     }
-
   }
+  
   let count = 0;
   getNeighbors(grid, start).forEach((n) => {
     count += !n.visited ? 1 : 0;
@@ -35,7 +35,6 @@ const random = (grid, start, end) => {
 
   return shuffleArray(Array.from(inside));
 };
-
 const addFrontiers = (cell, grid, frontiers) => {
   const x = cell.row;
   const y = cell.col;

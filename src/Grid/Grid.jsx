@@ -10,8 +10,8 @@ const Grid = () => {
   const {
     grid,
     setGrid,
-    algo,
-    setAlgo,
+    description,
+    setDescription,
     isAnimating,
     setIsAnimating,
     startPosition,
@@ -45,7 +45,7 @@ const Grid = () => {
   }, [mousePressed]);
 
   useEffect(() => {
-    if (algo !== "Select an Algorithm to Visualize") {
+    if (description !== "Select an Algorithm to Visualize") {
       updatePathfinding();
     }
   }, [dragCell]);
@@ -110,11 +110,11 @@ const Grid = () => {
   };
 
   const updatePathfinding = () => {
-    const algoToRun = algo;
+    const algoToRun = description;
     clearPath(
       grid,
       setGrid,
-      setAlgo,
+      setDescription,
       setPathfindingAnimation,
       setShortestPathAnimation,
       setPathfindingLength,
@@ -129,7 +129,7 @@ const Grid = () => {
     //Set distance traveled for path
     setPathfindingLength(allCellsInOrder.length - 1);
     setShortestPathLength(shortestPath.length - 1);
-    setAlgo(algoToRun);
+    setDescription(algoToRun);
    
     //Update the animation state
     const updatedPathfinding = new Set();

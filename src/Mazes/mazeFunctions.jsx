@@ -26,7 +26,7 @@ export const animateMaze = (
           });
         }, index * animationSpeed);
       });
-    },500);
+    },200);
   } else {
     walls.forEach((wall, index) => {
       setTimeout(() => {

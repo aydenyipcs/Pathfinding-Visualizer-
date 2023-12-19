@@ -23,6 +23,7 @@ const Cell = (props) => {
       onMouseDown={() => onMouseDown(row, col)}
       onMouseOver={() => onMouseOver(row, col)}
       onMouseUp={onMouseUp}
+      style={{ fontSize: '1.2vw' }}
     >{content}</div>
   );
 };

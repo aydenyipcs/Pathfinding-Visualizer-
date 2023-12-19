@@ -1,26 +1,27 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { GridContext } from "../App.jsx";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { Menu, MenuItem, MenuList } from "@mui/material";
+import { Menu, MenuItem } from "@mui/material";
 import "./navBar.scss";
-import { createBlankGrid, clearPath } from "../Grid/gridFunctions.jsx";
+import {
+  createBlankGrid,
+  clearPath,
+  start,
+  end,
+} from "../Grid/gridFunctions.jsx";
 import { getShortestPath, animateAlgo } from "../Algorithms/algoFunctions.jsx";
-import { algos, algoDescription, mazes, speeds } from "../utils.jsx";
+import { algos, descriptions, mazes, speeds } from "../utils.jsx";
 import { animateMaze } from "../Mazes/mazeFunctions.jsx";
 
 const NavBar = () => {
   const {
     grid,
     setGrid,
-    algo,
-    setAlgo,
+    description,
+    setDescription,
     isAnimating,
     setIsAnimating,
     startPosition,
@@ -40,25 +41,22 @@ const NavBar = () => {
   const speedDropDown = DropDown();
 
   const resetGrid = () => {
-    const defaultStart = [6, 13];
-    const defaultEnd = [58, 13];
-    setStartPosition(defaultStart);
-    setEndPosition(defaultEnd);
-    setGrid(createBlankGrid(defaultStart, defaultEnd));
+    setStartPosition(start());
+    setEndPosition(end());
+    setGrid(createBlankGrid(start(), end()));
     setPathfindingAnimation(new Set());
     setShortestPathAnimation(new Set());
     setPathfindingLength(0);
     setShortestPathLength(0);
-    setAlgo("Select an Algorithm to Visualize");
+    setDescription("Select an Algorithm to Visualize");
   };
 
   const resetGridMaze = () => {
-    setGrid(createBlankGrid(startPosition, endPosition));
+    setGrid(createBlankGrid(start(), end()));
     setPathfindingAnimation(new Set());
     setShortestPathAnimation(new Set());
     setPathfindingLength(0);
     setShortestPathLength(0);
-    setAlgo("Select an Algorithm to Visualize");
   };
 
   const runAlgo = (algo) => {
@@ -66,7 +64,7 @@ const NavBar = () => {
     clearPath(
       grid,
       setGrid,
-      setAlgo,
+      setDescription,
       setPathfindingAnimation,
       setShortestPathAnimation,
       setPathfindingLength,
@@ -76,14 +74,13 @@ const NavBar = () => {
     const startCell = grid[startPosition[0]][startPosition[1]];
     const endCell = grid[endPosition[0]][endPosition[1]];
     const allCellsInOrder = algos[algo](grid, startCell, endCell);
-    console.log(allCellsInOrder)
     const shortestPath = getShortestPath(
       allCellsInOrder[allCellsInOrder.length - 1]
     );
     //Set distance traveled for path
     setPathfindingLength(allCellsInOrder.length - 1);
     setShortestPathLength(shortestPath.length - 1);
-    setAlgo(algo);
+    setDescription(algo);
 
     animateAlgo(
       allCellsInOrder,
@@ -96,12 +93,13 @@ const NavBar = () => {
   };
 
   const runMaze = (maze) => {
-    setIsAnimating(true);
-    resetGridMaze();
-    const start = grid[startPosition[0]][startPosition[1]];
-    const end = grid[endPosition[0]][endPosition[1]];
-    const steps = mazes[maze](grid, start, end);
-    animateMaze(steps, maze, setGrid, setIsAnimating, animationSpeed);
+      const startCell = grid[startPosition[0]][startPosition[1]];
+      const endCell = grid[endPosition[0]][endPosition[1]];
+      const tempGrid = createBlankGrid(start(),end())
+      const steps = mazes[maze](tempGrid, startCell, endCell);
+      setDescription(maze);
+      resetGridMaze()
+      animateMaze(steps, maze, setGrid, setIsAnimating, animationSpeed);
   };
 
   return (
@@ -197,7 +195,7 @@ const NavBar = () => {
                 clearPath(
                   grid,
                   setGrid,
-                  setAlgo,
+                  setDescription,
                   setPathfindingAnimation,
                   setShortestPathAnimation,
                   setPathfindingLength,
@@ -214,8 +212,8 @@ const NavBar = () => {
         </Toolbar>
       </AppBar>
       <div className="algoDescription">
-        <h1>{algo}</h1>
-        <h3>...{algoDescription[algo]}</h3>
+        <h1>{description}</h1>
+        <h3>...{descriptions[description]}</h3>
       </div>
     </div>
   );
