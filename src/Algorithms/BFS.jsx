@@ -16,6 +16,7 @@ const bfs = (grid, startCell) => {
       unvisitedCells.push(neighbor);
     });
   }
+  return cellsInOrder;
 };
 
 export default bfs;

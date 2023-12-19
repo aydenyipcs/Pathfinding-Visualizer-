@@ -20,6 +20,7 @@ const greedy = (grid, startCell, endCell) => {
       unvisitedCells.push(neighbor);
     });
   }
+  return cellsInOrder;
 };
 
 //Loop through unvisitedCells and find cell with lowest H-Cost

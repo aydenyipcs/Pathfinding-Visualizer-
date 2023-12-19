@@ -76,6 +76,7 @@ const NavBar = () => {
     const startCell = grid[startPosition[0]][startPosition[1]];
     const endCell = grid[endPosition[0]][endPosition[1]];
     const allCellsInOrder = algos[algo](grid, startCell, endCell);
+    console.log(allCellsInOrder)
     const shortestPath = getShortestPath(
       allCellsInOrder[allCellsInOrder.length - 1]
     );

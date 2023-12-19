@@ -18,6 +18,7 @@ const dijkstra = (grid, startCell) => {
       unvisitedCells.push(neighbor);
     });
   }
+  return cellsInOrder;
 };
 
 export default dijkstra;

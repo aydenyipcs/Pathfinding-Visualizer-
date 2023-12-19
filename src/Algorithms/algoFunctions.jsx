@@ -35,9 +35,11 @@ export const manhattanDistance = (currCell, endCell) => {
 export const getShortestPath = (endCell) => {
   const shortestPath = [];
   let currCell = endCell;
-  while (currCell) {
-    shortestPath.unshift(currCell);
-    currCell = currCell.prevCell;
+  if(endCell.end) {
+    while (currCell) {
+      shortestPath.unshift(currCell);
+      currCell = currCell.prevCell;
+    }
   }
   return shortestPath;
 };

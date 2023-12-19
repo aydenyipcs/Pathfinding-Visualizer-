@@ -24,6 +24,7 @@ const aStar = (grid, startCell, endCell) => {
       unvisitedCells.push(neighbor);
     });
   }
+  return cellsInOrder;
 };
 
 //Loop through unvisitedCells and find cell with lowest F-Cost, if tied - choose cell with lowest H-Cost

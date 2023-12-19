@@ -16,6 +16,7 @@ const dfs = (grid, startCell) => {
       unvisitedCells.push(neighbor);
     });
   }
+  return cellsInOrder;
 };
 
 export default dfs;
