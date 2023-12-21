@@ -8,13 +8,25 @@ import prim from "./Mazes/Prims";
 import random from "./Mazes/Random";
 import recursiveBacktracking from "./Mazes/RecusiveBacktracking";
 import binaryTree from "./Mazes/binaryTree";
+import bds from "./Algorithms/BDS";
+import iddfs from "./Algorithms/IDDFS";
 
 export const algos = {
   "Dijkstra's Algorithm": dijkstra,
   "A* Search": aStar,
+  "Bidirectional Search": bds,
+  "Iterative Deepening Search": iddfs,
   "Greedy Best-First Search": greedy,
   "Breath-first Search": bfs,
   "Depth-first Search": dfs,
+};
+
+export const mazes = {
+  "Random Maze": random,
+  "Recursive Division": recursiveDivision,
+  "Recursive Backtracking": recursiveBacktracking,
+  "Prim's Algorithm": prim,
+  "Binary Tree": binaryTree
 };
 
 export const descriptions = {
@@ -29,15 +41,9 @@ export const descriptions = {
   "Recursive Division": "divides a space recursively until a condition is met",
   "Prim's Algorithm": "creates a minimum spanning tree",
   "Recursive Backtracking": "recursively explores and carves paths",
-  "Binary Tree": "creates a maze with a diagonal bias"
-};
-
-export const mazes = {
-  "Random Maze": random,
-  "Recursive Division": recursiveDivision,
-  "Recursive Backtracking": recursiveBacktracking,
-  "Prim's Algorithm": prim,
-  "Binary Tree": binaryTree
+  "Binary Tree": "creates a maze with a diagonal bias",
+  "Bidirectional Search": "is weighted and does not guarantee the the shortest path!",
+  "Iterative Deepening Search": "is unweighted and does not guarantee the shortest path!"
 };
 
 export const speeds = {

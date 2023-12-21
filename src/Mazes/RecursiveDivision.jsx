@@ -2,7 +2,7 @@
 const recursiveDivision = (grid) => {
   const width = grid[0].length;
   const height = grid.length
-  const wallsInOrder = [];
+  let wallsInOrder = [];
   divideRecursively(grid, 0, 0, width, height, selectDirection(width, height), wallsInOrder)
   return wallsInOrder;
 }

@@ -1,9 +1,9 @@
-import { getNeighbors, chooseRandomCell } from "./mazeFunctions";
+import { chooseRandomCell, unblock } from "./mazeFunctions";
 
 const prim = (grid, start, end) => {
   const startCell = chooseRandomCell(grid);
   const { row, col } = startCell;
-  const path = [];
+  let path = [];
   const frontiers = [[row, col, row, col]];
 
   while (frontiers.length) {
@@ -21,17 +21,7 @@ const prim = (grid, start, end) => {
       neighbors.forEach((n) => frontiers.push(n));
     }
   }
-  let count = 0;
-  getNeighbors(grid, start).forEach((n) => {
-    count += !n.visited ? 1 : 0;
-  });
-  if (count === 4) path.push(grid[start.row + 1][start.col]);
-  count = 0;
-  getNeighbors(grid, end).forEach((n) => {
-    count += !n.visited ? 1 : 0;
-  });
-  if (count === 4) path.push(grid[end.row + 1][end.col]);
-
+  path = unblock(grid, start, end, path)
   return path;
 };
 

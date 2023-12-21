@@ -53,7 +53,7 @@ const NavBar = () => {
   };
 
   const resetGridMaze = () => {
-    setGrid(createBlankGrid(start(), end()));
+    setGrid(createBlankGrid(startPosition, endPosition));
     setPathfindingAnimation(new Set());
     setShortestPathAnimation(new Set());
     setPathfindingLength(0);
@@ -71,10 +71,25 @@ const NavBar = () => {
       setPathfindingLength,
       setShortestPathLength
     );
-
     const startCell = grid[startPosition[0]][startPosition[1]];
     const endCell = grid[endPosition[0]][endPosition[1]];
     const allCellsInOrder = algos[algo](grid, startCell, endCell);
+    console.log(allCellsInOrder);
+    if (algo === "Bidirectional Search") {
+      const { path, finalPath } = allCellsInOrder;
+      setPathfindingLength(path.length - 1);
+      setShortestPathLength(finalPath.length - 1);
+      setDescription(algo);
+      animateAlgo(
+        path,
+        finalPath,
+        setPathfindingAnimation,
+        setShortestPathAnimation,
+        setIsAnimating,
+        animationSpeed
+      );
+      return;
+    }
     const shortestPath = getShortestPath(
       allCellsInOrder[allCellsInOrder.length - 1]
     );
@@ -97,8 +112,9 @@ const NavBar = () => {
     setIsAnimating(true);
     const startCell = grid[startPosition[0]][startPosition[1]];
     const endCell = grid[endPosition[0]][endPosition[1]];
-    const tempGrid = createBlankGrid(start(), end());
+    const tempGrid = createBlankGrid(startCell, endCell);
     const steps = mazes[maze](tempGrid, startCell, endCell);
+    console.log(grid);
     setDescription(maze);
     resetGridMaze();
     animateMaze(steps, maze, setGrid, setIsAnimating, animationSpeed);

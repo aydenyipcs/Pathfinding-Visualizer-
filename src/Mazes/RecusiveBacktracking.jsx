@@ -1,14 +1,15 @@
-import { chooseRandomCell } from "./mazeFunctions";
+import { chooseRandomCell, unblockSet } from "./mazeFunctions";
 
-const recursiveBacktracking = (grid) => {
-  const start = chooseRandomCell(grid);
-  start.visited = true;
+const recursiveBacktracking = (grid, start, end) => {
+  const startCell = chooseRandomCell(grid);
+  startCell.visited = true;
   const pathInOrder = new Set();
-  pathInOrder.add(start)
-  dfs(grid, start, pathInOrder);
+  pathInOrder.add(startCell)
+  dfs(grid, startCell, pathInOrder);
+  unblockSet(grid, start, end, pathInOrder)
   return Array.from(pathInOrder);
 };
-
+  
 const dfs = (grid, cell, pathInOrder) => {
 
   const unvisitedNeighbors = getUnvisitedNeighbors(grid, cell);

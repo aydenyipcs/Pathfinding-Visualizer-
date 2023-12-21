@@ -1,4 +1,4 @@
-import { getNeighbors, chooseRandomCell } from "./mazeFunctions";
+import { chooseRandomCell, unblockSet } from "./mazeFunctions";
 
 const random = (grid, start, end) => {
   const frontiers = new Set();
@@ -23,18 +23,8 @@ const random = (grid, start, end) => {
       addFrontiers(cell2, grid, frontiers);
     }
   }
-  
-  let count = 0;
-  getNeighbors(grid, start).forEach((n) => {
-    count += !n.visited ? 1 : 0;
-  });
-  if (count === 4) inside.add(grid[start.row + 1][start.col]);
-  count = 0;
-  getNeighbors(grid, end).forEach((n) => {
-    count += !n.visited ? 1 : 0;
-  });
-  if (count === 4) inside.add(grid[end.row + 1][end.col]);
 
+  unblockSet(grid, start, end, inside)
   return shuffleArray(Array.from(inside));
 };
 const addFrontiers = (cell, grid, frontiers) => {
