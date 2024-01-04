@@ -2,10 +2,10 @@
   display: flex;
   justify-content: space-around;
   width: 100vw;
-  height: 7vh;
+  height: 6.5vh;
   margin: 0;
   padding: 0;
-  font-size: 1.1rem;
+  font-size: 1.8vh;
   background-color: black;
   color: white;
 }
@@ -17,15 +17,14 @@
   margin-right: 1vw;
 }
 .algoDescription {
-  height: 5vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: baseline;
-  font-size: 1.2rem;
+  font-size: 1.5vh;
   margin: 0;
+  padding: 0;
   padding-top: 0;
-  padding-bottom: 0.8vh;
   h1,
   h3 {
     margin-right: 0.5vw;
@@ -45,7 +44,7 @@
   }
 }
 #algo-dropdown, #maze-dropdown {
-  font-size: 1rem;
+  font-size: 75%;
   color: white;
   margin-right: 0.2vw;
   transition: color 0.3s ease;
@@ -58,7 +57,7 @@
 }
 
 .MuiMenu-root .MuiMenuItem-root {
-  font-size: 1.1rem;
+  font-size: 100%;
   color: black;
 
   &:hover {
@@ -68,7 +67,7 @@
 #clearPathButton,
 #resetButton,
 #speed-dropdown {
-  font-size: 1rem;
+  font-size: 75%;
   margin-right: 0.2vw;
   transition: color 0.3s ease, opacity 0.3 ease;
   &:hover {

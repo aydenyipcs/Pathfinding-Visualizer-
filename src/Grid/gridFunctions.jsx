@@ -1,7 +1,6 @@
-let NUM_ROW = Math.floor(window.innerWidth / 30);
-let NUM_COL = Math.floor((window.innerHeight * 0.78) / 30);
-NUM_ROW = NUM_ROW > 80 ? NUM_ROW * 0.6 : NUM_ROW;
-NUM_COL = NUM_COL > 35 ? NUM_COL * 0.6 : NUM_COL;
+let blockSize = window.innerWidth > 2250 ? 40 : window.innerWidth < 1200 ? 20 : 30
+let NUM_ROW = Math.floor(window.innerWidth / blockSize);
+let NUM_COL = Math.floor((window.innerHeight * 0.78) / blockSize);
 
 export const createBlankGrid = (startPosition, endPosition) => {
   const blankGrid = [];

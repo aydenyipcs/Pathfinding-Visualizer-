@@ -17,8 +17,8 @@ export const algos = {
   "Bidirectional Search": bds,
   "Iterative Deepening Search": iddfs,
   "Greedy Best-First Search": greedy,
-  "Breath-first Search": bfs,
-  "Depth-first Search": dfs,
+  "Breadth-First Search": bfs,
+  "Depth-First Search": dfs,
 };
 
 export const mazes = {
@@ -34,8 +34,8 @@ export const descriptions = {
   "A* Search": "is weighted and guarantees the shortest path!",
   "Greedy Best-First Search":
     "is weighted and does not guarantee the shortest path!",
-  "Breath-first Search": "is unweighted and guarantees the shortest path!",
-  "Depth-first Search":
+  "Breadth-First Search": "is unweighted and guarantees the shortest path!",
+  "Depth-First Search":
     "is unweighted and does not guarantee the shortest path!",
   "Random Maze": "was custom made for fun :)",
   "Recursive Division": "divides a space recursively until a condition is met",
