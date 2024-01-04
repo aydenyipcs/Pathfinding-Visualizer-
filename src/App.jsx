@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 import Grid from "./Grid/Grid";
 import Info from "./Info&Stats/Info";
 import NavBar from "./NavBar/NavBar";

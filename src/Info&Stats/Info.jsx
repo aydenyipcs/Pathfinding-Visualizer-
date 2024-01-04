@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { GridContext } from "../App.jsx";
 import "./info.scss";
 

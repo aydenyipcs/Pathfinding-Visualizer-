@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
+import { useContext } from "react";
 import { cellInfoPropTypes, cellEventPropTypes } from "../propTypes";
 import "./Cell.scss";
 import { GridContext } from "../App";
