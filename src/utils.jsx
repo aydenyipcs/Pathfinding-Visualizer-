@@ -5,7 +5,7 @@ import iddfs from "./Algorithms/IDDFS.jsx";
 import greedy from "./Algorithms/Greedy.jsx";
 import bfs from "./Algorithms/BFS.jsx";
 import dfs from "./Algorithms/DFS.jsx";
-import random from "./Mazes/Random.jsx";
+import { random } from "./Mazes/Random.jsx";
 import recursiveDivision from "./Mazes/RecursiveDivision.jsx";
 import recursiveBacktracking from "./Mazes/RecusiveBacktracking.jsx";
 import prim from "./Mazes/Prims.jsx";
