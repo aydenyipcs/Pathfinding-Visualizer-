@@ -1,6 +1,6 @@
 import { chooseRandomCell, unblockSet } from "./mazeFunctions";
 
-export const random = (grid, start, end) => {
+const random = (grid, start, end) => {
   const frontiers = new Set();
   const inside = new Set();
   const startCell = chooseRandomCell(grid);
@@ -53,3 +53,5 @@ const shuffleArray = (array) => {
     }
     return array;
   };
+
+  export default random;
