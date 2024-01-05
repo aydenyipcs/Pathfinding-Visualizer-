@@ -40,7 +40,6 @@ export const animateMaze = (
   setIsAnimating,
   animationSpeed = 5
 ) => {
-  console.log(walls.length);
   if (
     maze === "Prim's Algorithm" ||
     maze === "Random Maze" ||

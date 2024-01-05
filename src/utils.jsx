@@ -1,15 +1,15 @@
 import dijkstra from "./Algorithms/Dijkstra";
 import aStar from "./Algorithms/AStar.jsx";
+import bds from "./Algorithms/BDS.jsx";
+import iddfs from "./Algorithms/IDDFS.jsx";
 import greedy from "./Algorithms/Greedy.jsx";
 import bfs from "./Algorithms/BFS.jsx";
 import dfs from "./Algorithms/DFS.jsx";
-import recursiveDivision from "./Mazes/RecursiveDivision.jsx";
-import prim from "./Mazes/Prims.jsx";
 import random from "./Mazes/Random.jsx";
+import recursiveDivision from "./Mazes/RecursiveDivision.jsx";
 import recursiveBacktracking from "./Mazes/RecusiveBacktracking.jsx";
+import prim from "./Mazes/Prims.jsx";
 import binaryTree from "./Mazes/binaryTree.jsx";
-import bds from "./Algorithms/BDS.jsx";
-import iddfs from "./Algorithms/IDDFS.jsx";
 
 export const algos = {
   "Dijkstra's Algorithm": dijkstra,
