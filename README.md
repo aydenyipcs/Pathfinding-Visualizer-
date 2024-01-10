@@ -1,6 +1,6 @@
 # Voyager
 This is Voyager, a space-themed pathfinding visualizer I built for my interest in algorithms. 
-Click and drag to move the start/end nodes or to add/delete walls. You can also adjust the animation speed for the pathfinding and maze generation algorithms!
+Click and drag to move the start/end nodes, add/delete walls, and also view real-time animation updates based on changes in the grid. You can also adjust the animation speed for the pathfinding and maze generation algorithms!
 Check it out here! https://voyager-aydenyip.vercel.app/ 
 
 ## Pathfinding Algorithms
