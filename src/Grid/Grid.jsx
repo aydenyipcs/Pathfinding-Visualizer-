@@ -1,11 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import { GridContext } from "../App.jsx";
 import Cell from "./Cell.jsx";
 import "./Grid.scss";
 import { algos } from "../utils.jsx";
 import { getShortestPath } from "../Algorithms/algoFunctions.jsx";
 
-const Grid = () => {
+function Grid() {
   const {
     grid,
     setGrid,
@@ -209,5 +209,6 @@ const Grid = () => {
     </div>
   );
 };
+Grid = React.memo(Grid)
 
 export default Grid;

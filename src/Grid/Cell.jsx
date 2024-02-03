@@ -1,9 +1,9 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { cellInfoPropTypes, cellEventPropTypes } from "../propTypes";
 import "./Cell.scss";
 import { GridContext } from "../App";
 
-const Cell = (props) => {
+function Cell (props) {
   const { pathfindingAnimation, shortestPathAnimation} =
     useContext(GridContext);
   const { cellInfo, eventHandlers } = props;
@@ -26,6 +26,7 @@ const Cell = (props) => {
     >{content}</div>
   );
 };
+Cell = React.memo(Cell)
 
 Cell.propTypes = {
   cellInfo: cellInfoPropTypes,
